@@ -1,10 +1,9 @@
 version: 0.2
-
 phases:
   install:
     runtime-versions:
       java: corretto11
-      docker: 18
+      docker: latest
   pre_build:
     commands:
       - REPOSITORY_URI=omade/distributedlocksdemo
@@ -12,7 +11,6 @@ phases:
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH}
       - echo "Image tag - $IMAGE_TAG"
-
 
   build:
     commands:
