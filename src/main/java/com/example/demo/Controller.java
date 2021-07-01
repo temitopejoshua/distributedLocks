@@ -27,6 +27,12 @@ public class Controller {
 
         return ResponseEntity.ok(userRepository.findAll());
    }
+
+    @GetMapping("/t-father")
+    public ResponseEntity<Object> tfather(){
+
+        return ResponseEntity.ok("It Finally worked");
+    }
 //    @GetMapping("/{id}")
 //    @SneakyThrows
 //    public ResponseEntity<Object> findById(@PathVariable long id){
