@@ -3,30 +3,27 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - |-
-        REPOSITORY_URI=omade/distributedlocksdemo
-        SERVICE_NAME=distributedlockservice
-        COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-        IMAGE_TAG=${COMMIT_HASH}
-        echo "Image tag - $IMAGE_TAG"
-        docker login -u omade -p ${dockerhubPassword}
+      - REPOSITORY_URI=omade/distributedlocksdemo
+      - SERVICE_NAME=distributedlockservice
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH}
+      - echo "Image tag - $IMAGE_TAG"
+      - docker login -u omade -p ${dockerhubPassword}
 
 
   build:
     commands:
-      - |-
-        mvn -q clean package
-        docker login -u omade -p ${dockerhubPassword}
-        echo "TAGGING RELEASE $SERVICE_NAME DOCKER IMAGE."
-        docker build -t "${REPOSITORY_URI}:{IMAGE_TAG}" .
+      - mvn -q clean package
+      - docker login -u omade -p ${dockerhubPassword}
+      - echo "TAGGING RELEASE $SERVICE_NAME DOCKER IMAGE."
+      - docker build -t "${REPOSITORY_URI}:{IMAGE_TAG}" .
 
   post_build:
     commands:
       #      - printf '{"ZambeziServiceImageTag":"%s"}' "c1c284b" > imageDetail.json
-      - |-
-        docker push "${REPOSITORY_URI}:{IMAGE_TAG}"
-        echo "PUSHED RELEASE $SERVICE_NAME DOCKER IMAGE."
-        printf '{"omade/distributedlocksdemo":"%s"}' $IMAGE_TAG > build.json
+      - docker push "${REPOSITORY_URI}:{IMAGE_TAG}"
+      - echo "PUSHED RELEASE $SERVICE_NAME DOCKER IMAGE."
+      - printf '{"omade/distributedlocksdemo":"%s"}' $IMAGE_TAG > build.json
 
 #artifacts:
 #  files:
