@@ -1,0 +1,11 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "omade/distributedlocksdemo:latest-2"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "40751"
+    }
+  ]
+}
