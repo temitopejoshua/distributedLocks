@@ -17,12 +17,12 @@ phases:
       - mvn -q clean package
       - docker login -u omade -p oyemade1579
       - echo "TAGGING RELEASE $SERVICE_NAME DOCKER IMAGE."
-      - docker build -t "${REPOSITORY_URI}:{IMAGE_TAG}" .
+      - docker build -t ${REPOSITORY_URI}:${IMAGE_TAG} .
 
   post_build:
     commands:
       #      - printf '{"ZambeziServiceImageTag":"%s"}' "c1c284b" > imageDetail.json
-      - docker push "${REPOSITORY_URI}:{IMAGE_TAG}"
+      - docker push ${REPOSITORY_URI}:${IMAGE_TAG}
       - echo "PUSHED RELEASE $SERVICE_NAME DOCKER IMAGE."
       - printf '{"AWSEBDockerrunVersion":"1", "Image":{"Name":"omade/distributedlocksdemo:%s"}, "Ports":[{"ContainerPort":"40751"}]}' $IMAGE_TAG > Dockerrun.aws.json
 
