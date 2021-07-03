@@ -24,11 +24,11 @@ phases:
       #      - printf '{"ZambeziServiceImageTag":"%s"}' "c1c284b" > imageDetail.json
       - docker push "${REPOSITORY_URI}:{IMAGE_TAG}"
       - echo "PUSHED RELEASE $SERVICE_NAME DOCKER IMAGE."
-      - printf '{"omade/distributedlocksdemo":"%s"}' $IMAGE_TAG > build.json
+      - printf '{"AWSEBDockerrunVersion":"1", "Image":{"Name":"omade/distributedlocksdemo:%s"}, "Ports":[{"ContainerPort":"40751"}]}' $IMAGE_TAG > Dockerrun.aws.json
 
 artifacts:
   files:
-    - build.json
+    - Dockerrun.aws.json
 #    - cfn/service.yml
 #    - cfn/environments/production.json
 
