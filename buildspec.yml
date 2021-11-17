@@ -21,7 +21,6 @@ phases:
 
   post_build:
     commands:
-      #      - printf '{"ZambeziServiceImageTag":"%s"}' "c1c284b" > imageDetail.json
       - docker push ${REPOSITORY_URI}:${IMAGE_TAG}
       - echo "PUSHED RELEASE $SERVICE_NAME DOCKER IMAGE."
       - printf '{"AWSEBDockerrunVersion":"1", "Image":{"Name":"omade/distributedlocksdemo:%s"}, "Ports":[{"ContainerPort":"40751"}]}' $IMAGE_TAG > Dockerrun.aws.json

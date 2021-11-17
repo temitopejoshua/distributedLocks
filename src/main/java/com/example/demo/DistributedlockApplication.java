@@ -23,8 +23,10 @@ public class DistributedlockApplication {
 	@Transactional
 	public CommandLineRunner run(){
 		return (args) -> {
-			userRepository.save(UserEntity.builder().username("test123")
-					.firstName("First Name")
+			System.out.println("Fetched data successfully");
+			userRepository.findAll().stream().forEach((t) -> System.out.println("Printing data " + t));
+			userRepository.save(UserEntity.builder().username("Testing Honda")
+					.firstName("Updated Changes")
 					.password("test")
 					.build());
 
